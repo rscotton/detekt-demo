@@ -1,17 +1,16 @@
-# detekt-demo
+# Detekt Android Boilerplate
 
 Includes boilerplate configuration to work with [Detekt](https://detekt.dev/) in a Kotlin project.
 
 ## Usage
 
-To run "basic" Detekt, execute the following command:
+To run "basic" Detekt, run the following command from the root of this project:
 
 ```shell
 ./gradlew detekt
 ```
 
-To run Detekt with [Type Resolution](https://detekt.dev/docs/gettingstarted/type-resolution),
-execute the following command:
+To run Detekt with [Type Resolution](https://detekt.dev/docs/gettingstarted/type-resolution), run the following:
 
 ```shell
 ./gradlew detektDebug detektDebugUnitTest detektDebugAndroidTest --continue
@@ -36,32 +35,40 @@ Some items of note include:
       auto-correcting some rule violations
     - [Forked version of Twitter's Compose rules](https://github.com/mrmans0n/compose-rules) for
       Compose-specific rules
-- [app/config/detekt/detekt.yml](app/config/detekt/detekt.yml) includes a basic configuration to run
-  Detekt with some basic rule overrides - Detekt does not account for Compose
-    * conventions by default.
+- [detekt.yml](app/config/detekt/detekt.yml) includes a basic configuration to run
+  Detekt with some basic rule overrides geared toward accommodating Compose + test suites
+    - Note that Detekt does not account for Compose conventions by default.
+      See [Detekt's recommended Compose overrides](https://detekt.dev/docs/introduction/compose) for
+      a good starting place to apply your preferred rules strategy for Compose projects.
 
 ## Github Actions workflows
 
-1. [.github/workflows/detekt-without-type-resolution.yml](.github/workflows/detekt-without-type-resolution.yml)
-   to run Detekt with SARIF reporting enabled
-2. [.github/workflows/detekt-with-type-resolution.yml](.github/workflows/detekt-with-type-resolution.yml)
-   to run Detekt with Type Resolution (no reporting enabled)
+1. [Detekt without Type Resolution](.github/workflows/detekt-without-type-resolution.yml)
+   to run Detekt
+   with [SARIF reporting](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning)
+   enabled
+2. [Detekt with Type Resolution](.github/workflows/detekt-with-type-resolution.yml)
+   to run Detekt with Type Resolution (no reporting enabled for now)
 
 ## Git hooks tooling
 
 If you would like to run Detekt as a pre-push hook:
 
-1. Decide if you want to use Type Resolution or not - if you do, update [hooks/pre-push.sh](hooks/pre-push.sh)
+1. Decide if you want to use Type Resolution or not - if you do,
+   update [hooks/pre-push.sh](hooks/pre-push.sh)
    to run the appropriate Gradle task(s)
 2. Run the following commands to set up the pre-push hook:
-OSX:
-```shell
-./gradlew installGitHooksMac
-```
 
-Windows:
-```shell
-./gradlew installGitHooksMWindows
-```
+   OSX:
+
+   ```shell
+   ./gradlew installGitHooksMac
+   ```
+
+   Windows:
+
+   ```shell
+   ./gradlew installGitHooksMWindows
+   ```
 
 After this is done, Detekt should run and prevent pushing a commit if there are any issues.
