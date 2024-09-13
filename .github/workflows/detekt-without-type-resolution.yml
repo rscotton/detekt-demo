@@ -1,4 +1,4 @@
-name: Detekt
+name: Detekt without Type Resolution
 
 on:
   pull_request:
@@ -44,30 +44,3 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: app/build/reports/detekt/detekt.sarif
-
-  with-type-resolution:
-    permissions:
-      checks: write  # for jwgmeligmeyling/checkstyle-github-action to create check runs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'temurin'
-
-      - name: Run detekt
-        run: ./gradlew detektDebug detektDebugUnitTest detektDebugAndroidTest --continue
-
-      # Make sure we always run this reporting task,
-      # because the previous step may fail if there are findings.
-      # Note that this is not a super well-maintained reporting tool - there's probably better ways
-      # to go about this!
-      - name: Publish XML report to GitHub using the checkstyle-github-action action
-        uses: jwgmeligmeyling/checkstyle-github-action@master
-        if: success() || failure()
-        with:
-          path: app/build/reports/detekt/detekt.xml

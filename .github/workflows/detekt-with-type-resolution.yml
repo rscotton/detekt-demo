@@ -1,0 +1,26 @@
+name: Detekt with Type Resolution
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  with-type-resolution:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Run detekt
+        run: ./gradlew detektDebug detektDebugUnitTest detektDebugAndroidTest --continue
+
+      # For XML / SARIF reporting, you will need to merge reports corresponding to each detekt task
+      # listed above. Start here: https://detekt.dev/docs/introduction/reporting#merging-reports
