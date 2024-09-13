@@ -46,3 +46,22 @@ Some items of note include:
    to run Detekt with SARIF reporting enabled
 2. [.github/workflows/detekt-with-type-resolution.yml](.github/workflows/detekt-with-type-resolution.yml)
    to run Detekt with Type Resolution (no reporting enabled)
+
+## Git hooks tooling
+
+If you would like to run Detekt as a pre-push hook:
+
+1. Decide if you want to use Type Resolution or not - if you do, update [hooks/pre-push.sh](hooks/pre-push.sh)
+   to run the appropriate Gradle task(s)
+2. Run the following commands to set up the pre-push hook:
+OSX:
+```shell
+./gradlew installGitHooksMac
+```
+
+Windows:
+```shell
+./gradlew installGitHooksMWindows
+```
+
+After this is done, Detekt should run and prevent pushing a commit if there are any issues.
