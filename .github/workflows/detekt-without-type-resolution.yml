@@ -9,7 +9,6 @@ on:
 jobs:
   without-type-resolution:
     permissions:
-      checks: write  # for jwgmeligmeyling/checkstyle-github-action to create check runs
       security-events: write  # for github/codeql-action/upload-sarif to upload SARIF results
     runs-on: ubuntu-latest
     env:
@@ -27,15 +26,12 @@ jobs:
       - name: Run detekt
         run: ./gradlew detekt
 
-      # Make sure we always run this reporting task,
-      # because the previous step may fail if there are findings.
-      # Note that this is not a super well-maintained reporting tool - there's probably better ways
-      # to go about this!
-      - name: Publish XML report to GitHub using the checkstyle-github-action action
-        uses: jwgmeligmeyling/checkstyle-github-action@master
+      - name: Upload Detekt Reports
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
-          path: app/build/reports/detekt/detekt.xml
+          name: Reports
+          path: app/build/reports/detekt
 
       # Make sure we always run this reporting task,
       # because the previous step may fail if there are findings.
