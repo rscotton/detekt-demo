@@ -60,6 +60,8 @@ android {
         source.setFrom("src/main/java", "src/androidTest/java", "src/test/java")
         // TODO Test this configuration on your project! Maybe it helps improve the run time, maybe not
         // parallel = true
+        // Required for SARIF report generation in Github Actions workflow
+        basePath = rootProject.projectDir.absolutePath
     }
 }
 
