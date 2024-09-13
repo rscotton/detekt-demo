@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package com.bytymoxy.detektdemo.ui.theme
 
 import androidx.compose.ui.graphics.Color

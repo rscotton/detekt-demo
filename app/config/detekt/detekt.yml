@@ -1,0 +1,26 @@
+complexity:
+  LongMethod:
+    ignoreAnnotated:
+      - 'Composable'
+  LongParameterList:
+    ignoreDefaultParameters: true
+    ignoreAnnotated:
+      - 'Composable'
+naming:
+  FunctionNaming:
+    excludes:
+      - '**/test/**'
+      - '**/androidTest/**'
+    ignoreAnnotated:
+      - 'Composable'
+style:
+  MagicNumber:
+    excludes:
+      - '**/test/**'
+      - '**/androidTest/**'
+    ignoreAnnotated:
+      - 'Composable'
+  UnusedPrivateMember:
+    ignoreAnnotated:
+      - 'Preview'
+      - 'Composable'

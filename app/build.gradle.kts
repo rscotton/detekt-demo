@@ -89,4 +89,10 @@ dependencies {
      * https://detekt.dev/docs/rules/formatting
      */
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
+    /**
+     * Fork of Twitter Jetpack Compose Rules plugin for Detekt - Detekt does not account for Compose
+     * conventions by default:
+     * https://github.com/mrmans0n/compose-rules
+     */
+    detektPlugins("io.nlopez.compose.rules:detekt:0.4.12")
 }
