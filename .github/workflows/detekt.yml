@@ -13,6 +13,7 @@ jobs:
   without-type-resolution:
     permissions:
       contents: read  # for actions/checkout to fetch code
+      checks: write  # for jwgmeligmeyling/checkstyle-github-action to create check runs
       security-events: write  # for github/codeql-action/upload-sarif to upload SARIF results
     runs-on: ubuntu-latest
     env:
