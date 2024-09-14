@@ -8,8 +8,8 @@ complexity:
       - 'Composable'
   LongParameterList:
     ignoreDefaultParameters: true
-    ignoreAnnotated:
-      - 'Composable'
+    # Default is 6, bump up higher depending on Compose function complexity team is comfortable with
+    functionThreshold: 6
   TooManyFunctions:
     ignoreAnnotated:
       - 'Preview'
@@ -27,9 +27,7 @@ style:
     excludes:
       - '**/test/**'
       - '**/androidTest/**'
-    ignoreAnnotated:
-      - 'Composable'
+    ignorePropertyDeclaration: true
   UnusedPrivateMember:
     ignoreAnnotated:
       - 'Preview'
-      - 'Composable'
