@@ -11,12 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import com.bytymoxy.detektdemo.ui.theme.DetektDemoTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        lifecycleScope.launch {
+            ViolateFunctionNamingRule()
+        }
         setContent {
             DetektDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -44,4 +49,15 @@ private fun GreetingPreview() {
     DetektDemoTheme {
         Greeting("Android")
     }
+}
+
+/**
+ * Two rules broken here:
+ *
+ * 1. FunctionNaming - it isn't Compose, so it should be: violateFunctionNamingRule
+ * 2. RedundantSuspendModifier (type resolution only rule!) - it doesn't call suspend functions, so
+ *    labeling as suspend needlessly restricts use of the function
+ */
+private suspend fun ViolateFunctionNamingRule() {
+    println("This is not a Compose function, so Detekt should flag a violation of FunctionNaming.")
 }
