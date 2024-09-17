@@ -2,6 +2,14 @@
 
 Includes boilerplate configuration to work with [Detekt](https://detekt.dev/) in a Kotlin project.
 
+Repository includes:
+
+1. A [basic Gradle configuration](#gradle--rules-configuration) to run Detekt
+2. Two [Github Actions workflows](#github-actions-workflows) to run Detekt - one with Type
+   Resolution and one without
+3. A [pre-push Git hook](#git-hooks-tooling) + tooling to install it in order to run Detekt before
+   pushing a commit
+
 ## Usage
 
 To run "basic" Detekt, run the following command from the root of this project:
@@ -16,14 +24,6 @@ the following:
 ```shell
 ./gradlew detektDebug detektDebugUnitTest detektDebugAndroidTest --continue
 ```
-
-Repository includes:
-
-1. A [basic Gradle configuration](#gradle--rules-configuration) to run Detekt
-2. Two [Github Actions workflows](#github-actions-workflows) to run Detekt - one with Type
-   Resolution and one without
-3. A [pre-push Git hook](#git-hooks-tooling) + tooling to install it in order to run Detekt before
-   pushing a commit
 
 ## Gradle + Rules Configuration
 
