@@ -89,4 +89,56 @@ dependencies {
      * https://detekt.dev/docs/rules/formatting
      */
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
+    /**
+     * Fork of Twitter Jetpack Compose Rules plugin for Detekt - Detekt does not account for Compose
+     * conventions by default:
+     * https://github.com/mrmans0n/compose-rules
+     */
+    detektPlugins("io.nlopez.compose.rules:detekt:0.4.12")
+}
+
+/**
+ * Optional Git Hooks-supporting Gradle task to install hooks for new developers
+ *
+ * IMPORTANT: If you want to use Type Resolution, update hooks/pre-push.sh to change how Detekt
+ * is run
+ */
+
+tasks.create<Copy>("copyGitHooks") {
+    description = "Copies the git hooks to the .git folder."
+    from("$rootDir/hooks/") {
+        include("**/*.sh")
+        rename("(.*).sh", "$1")
+    }
+    into("$rootDir/.git/hooks")
+}
+
+// This task is created for machines running OSX
+tasks.create<Exec>("installGitHooksMac") {
+    description = "Installs the pre-commit git hooks from hooks folder"
+    group = "git hooks"
+    workingDir = rootDir
+    commandLine = listOf("chmod")
+
+    args(listOf("-R", "+x", ".git/hooks/"))
+    dependsOn(tasks.getByName("copyGitHooks"))
+    doLast {
+        logger.info("Git hooks installed successfully.")
+        println("Git hooks installed successfully.")
+    }
+}
+
+// This task is created for machines running Windows
+tasks.create<Exec>("installGitHooksWindows") {
+    description = "Installs the pre-commit git hooks from hooks folder"
+    group = "git hooks"
+    workingDir = rootDir
+    commandLine = listOf("attrib")
+
+    args(listOf("-R", "+x", ".git/hooks/"))
+    dependsOn(tasks.getByName("copyGitHooks"))
+    doLast {
+        logger.info("Git hooks installed successfully.")
+        println("Git hooks installed successfully.")
+    }
 }

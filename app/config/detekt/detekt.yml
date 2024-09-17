@@ -1,0 +1,33 @@
+# Overrides to support Compose, ignore test suites for some rules.
+# The below represents an *opinion* based on recommendations from Detekt.
+# Start here and apply your preferred override strategy!:
+# https://detekt.dev/docs/introduction/compose
+complexity:
+  LongMethod:
+    ignoreAnnotated:
+      - 'Composable'
+  LongParameterList:
+    ignoreDefaultParameters: true
+    # Default is 6, bump up higher depending on Compose function complexity team is comfortable with
+    functionThreshold: 6
+  TooManyFunctions:
+    ignoreAnnotated:
+      - 'Preview'
+naming:
+  FunctionNaming:
+    excludes:
+      - '**/test/**'
+      - '**/androidTest/**'
+    ignoreAnnotated:
+      - 'Composable'
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+style:
+  MagicNumber:
+    excludes:
+      - '**/test/**'
+      - '**/androidTest/**'
+    ignorePropertyDeclaration: true
+  UnusedPrivateMember:
+    ignoreAnnotated:
+      - 'Preview'
